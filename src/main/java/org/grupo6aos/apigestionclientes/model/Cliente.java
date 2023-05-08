@@ -1,12 +1,15 @@
 package org.grupo6aos.apigestionclientes.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente {
 
     @Id
+    @Pattern(regexp = "^[XYZ]?\\d{7,8}[A-Z]$",
+            message = "El identificador de un cliente debe de ser un DNI o NIE valido")
     private String id;
 
     private String nombre;
@@ -18,8 +21,12 @@ public class Cliente {
 
     private int edad;
 
+    @Pattern(regexp = "^(?:(?:\\+|00)34)?[6-9]\\d{8}$\n",
+            message = "El telefono no es valido")
     private String numeroTelefono;
 
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n",
+            message = "El correo electronico no es valido")
     private String correoElectronico;
 
     @Embedded

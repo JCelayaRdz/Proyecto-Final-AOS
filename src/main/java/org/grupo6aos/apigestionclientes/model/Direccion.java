@@ -1,10 +1,13 @@
 package org.grupo6aos.apigestionclientes.model;
 
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.Pattern;
 
 @Embeddable
 public class Direccion {
 
+    @Pattern(regexp = "^C/ [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+)*$\n",
+            message = "La calle proporcionada no cumple con el formato valido")
     private String nombreCalle;
 
     private int numeroEdificacion;
