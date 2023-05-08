@@ -1,23 +1,30 @@
 package org.grupo6aos.apigestionclientes.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Embeddable
 public class Direccion {
 
+    @Column(name = "nombre_calle")
+    @NotEmpty
     @Pattern(regexp = "^C/ [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+)*$\n",
             message = "La calle proporcionada no cumple con el formato valido")
     private String nombreCalle;
 
-    private int numeroEdificacion;
+    @Column(name = "numero_edificacion")
+    @NotNull
+    private Integer numeroEdificacion;
 
     private String detalles;
 
     public Direccion() {
     }
 
-    public Direccion(String nombreCalle, int numeroEdificacion, String detalles) {
+    public Direccion(String nombreCalle, Integer numeroEdificacion, String detalles) {
         this.nombreCalle = nombreCalle;
         this.numeroEdificacion = numeroEdificacion;
         this.detalles = detalles;
@@ -31,11 +38,11 @@ public class Direccion {
         this.nombreCalle = nombreCalle;
     }
 
-    public int getNumeroEdificacion() {
+    public Integer getNumeroEdificacion() {
         return numeroEdificacion;
     }
 
-    public void setNumeroEdificacion(int numeroEdificacion) {
+    public void setNumeroEdificacion(Integer numeroEdificacion) {
         this.numeroEdificacion = numeroEdificacion;
     }
 
