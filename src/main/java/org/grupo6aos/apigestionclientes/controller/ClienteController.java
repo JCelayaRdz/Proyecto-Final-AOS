@@ -21,16 +21,14 @@ public class ClienteController {
     }
 
     @GetMapping
-    public Slice<Cliente> findAll(
+    public List<Cliente> findAll(
             @RequestParam(name = "page", required = false) Integer page,
             @RequestParam(name = "order", required = false) String order,
             @RequestParam(name = "ordering", required = false) Sort.Direction ordering
     ) {
-        final Logger log = LoggerFactory.getLogger(ClienteController.class);
-        log.warn("PAGE " + page);
-        log.warn("ORDER " + order);
-        log.warn("ORDERING "+ ordering);
-        return service.findAll(page, order, ordering);
+        return service.findAll(page, order, ordering)
+                .stream()
+                .toList();
     }
 
     @GetMapping("/{clienteId}")
