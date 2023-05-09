@@ -66,6 +66,11 @@ public class ClienteService {
         return repository.save(cliente);
     }
 
+    public Cliente updateOne(String clienteId, Cliente cliente) {
+        if (!repository.existsById(clienteId)) throw new NotFoundException();
+        return repository.save(cliente);
+    }
+
     public void deleteOne(String clienteId) {
         if (!repository.existsById(clienteId)) throw new NotFoundException();
         repository.deleteById(clienteId);

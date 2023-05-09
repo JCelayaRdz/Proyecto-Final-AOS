@@ -57,6 +57,14 @@ public class ClienteController {
                 .body(clienteGuardado);
     }
 
+    @PutMapping("/{clienteId}")
+    public ResponseEntity<?> updateOne(@PathVariable String clienteId,
+                                       @Valid @RequestBody Cliente cliente) {
+        var clienteActualizado = service.updateOne(clienteId, cliente);
+        return ResponseEntity.status(209)
+                .body(clienteActualizado);
+    }
+
     @DeleteMapping("/{clienteId}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteOne(@PathVariable String clienteId) {
