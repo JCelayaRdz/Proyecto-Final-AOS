@@ -34,9 +34,13 @@ public class ClienteService {
             direction = ordering;
         }
 
-        return repository.findAll(
+        var slice =  repository.findAll(
                 PageRequest.of(pageNumber, PAGE_SIZE, Sort.by(direction, orderBy))
         );
+
+        if (slice.getNumberOfElements() == 0) throw new NotFoundException();
+
+        return slice;
     }
 
     private boolean shouldReturnFirstPage(Integer page) {
