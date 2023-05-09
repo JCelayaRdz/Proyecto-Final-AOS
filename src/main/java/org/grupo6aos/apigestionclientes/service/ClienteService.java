@@ -59,4 +59,9 @@ public class ClienteService {
         return repository.findById(clienteId)
                 .orElseThrow(NotFoundException::new);
     }
+
+    public void deleteOne(String clienteId) {
+        if (!repository.existsById(clienteId)) throw new NotFoundException();
+        repository.deleteById(clienteId);
+    }
 }

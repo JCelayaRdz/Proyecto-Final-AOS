@@ -18,7 +18,7 @@ public class NotFoundAdvice {
                 404,
                 e.getMessage(),
                 "about:blank");
-        
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .header("Content-Type","application/problem+json")
                 .body(body);
