@@ -13,15 +13,42 @@ public class ClienteService {
 
     private final ClienteRepository repository;
 
+    private final static int PAGE_SIZE = 5;
+
     public ClienteService(ClienteRepository repository) {
         this.repository = repository;
     }
 
     public Slice<Cliente> findAll(Integer page, String order, Sort.Direction ordering) {
-        if (ordering != Sort.Direction.DESC) {
-            return repository.findAll(PageRequest.of(page, 5, Sort.by(order).ascending()));
+        int pageNumber = 0;
+        String orderBy = "id";
+        Sort.Direction direction = Sort.Direction.ASC;
+
+        if (!shouldReturnFirstPage(page)) {
+            pageNumber = page;
         }
-        return repository.findAll(PageRequest.of(page, 5, Sort.by(order).descending()));
+        if (!shouldOrderById(order)) {
+            orderBy = order;
+        }
+        if (!shouldOrderAsc(ordering)) {
+            direction = ordering;
+        }
+
+        return repository.findAll(
+                PageRequest.of(pageNumber, PAGE_SIZE, Sort.by(direction, orderBy))
+        );
+    }
+
+    private boolean shouldReturnFirstPage(Integer page) {
+        return page == null || page <= 0;
+    }
+
+    private boolean shouldOrderById(String order) {
+        return order == null || order.trim().length() == 0;
+    }
+
+    private boolean shouldOrderAsc(Sort.Direction ordering) {
+        return ordering == null || ordering.isAscending();
     }
 
     public Cliente findOne(String clienteId) {
