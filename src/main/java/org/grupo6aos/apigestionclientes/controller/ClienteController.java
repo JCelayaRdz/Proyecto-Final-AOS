@@ -42,7 +42,11 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    public Cliente findOne(@PathVariable String clienteId) {
-        return service.findOne(clienteId);
+    public ResponseEntity<Cliente> findOne(@PathVariable String clienteId) {
+        var cliente = service.findOne(clienteId);
+        String etag = Integer.toString(cliente.hashCode());
+        return ResponseEntity.ok()
+                .header("ETag", etag)
+                .body(cliente);
     }
 }
