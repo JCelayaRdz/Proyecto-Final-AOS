@@ -1,5 +1,6 @@
 package org.grupo6aos.apigestionclientes.service;
 
+import org.grupo6aos.apigestionclientes.exeception.BadRequestException;
 import org.grupo6aos.apigestionclientes.exeception.NotFoundException;
 import org.grupo6aos.apigestionclientes.model.Cliente;
 import org.grupo6aos.apigestionclientes.repository.ClienteRepository;
@@ -58,6 +59,11 @@ public class ClienteService {
     public Cliente findOne(String clienteId) {
         return repository.findById(clienteId)
                 .orElseThrow(NotFoundException::new);
+    }
+
+    public Cliente saveOne(Cliente cliente) {
+        if (repository.existsById(cliente.getId())) throw new BadRequestException();
+        return repository.save(cliente);
     }
 
     public void deleteOne(String clienteId) {

@@ -1,6 +1,7 @@
 package org.grupo6aos.apigestionclientes.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.grupo6aos.apigestionclientes.model.Cliente;
 import org.grupo6aos.apigestionclientes.service.ClienteService;
 import org.springframework.data.domain.Sort;
@@ -44,6 +45,16 @@ public class ClienteController {
         return ResponseEntity.ok()
                 .header("ETag", etag)
                 .body(cliente);
+    }
+
+    @PostMapping
+    public ResponseEntity<Cliente> saveOne(@Valid @RequestBody Cliente cliente,
+                                           HttpServletRequest request) {
+        var url = request.getRequestURL();
+        var clienteGuardado = service.saveOne(cliente);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("Location", url+"/"+clienteGuardado.getId())
+                .body(clienteGuardado);
     }
 
     @DeleteMapping("/{clienteId}")
