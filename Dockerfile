@@ -8,4 +8,4 @@ RUN mvn -B package --no-transfer-progress -DskipTests
 FROM amazoncorretto:17-alpine3.14
 WORKDIR /api
 COPY --from=builder /api/target/api-gestion-clientes.jar ./api-gestion-clientes.jar
-CMD ["sh", "-c", "sleep 300 && java -jar api-gestion-clientes.jar"]
+CMD ["java", "-jar", "api-gestion-clientes.jar"]
