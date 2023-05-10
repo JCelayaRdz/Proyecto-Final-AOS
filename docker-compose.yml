@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: grupo6aos_api_gestion_clientes
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysql
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0.33
+    container_name: mysql_server
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - gestion-clientes-data:/var/lib/mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gestion-clientes
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 300s
+      retries: 10
+
+volumes:
+  gestion-clientes-data:
