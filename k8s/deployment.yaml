@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gestion-clientes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gestion-clientes
+  template:
+    metadata:
+      labels:
+        app: api-gestion-clientes
+    spec:
+      containers:
+        - name: api-gestion-clientes
+          image: jcelayardz/api-gestion-clientes:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: password
+
