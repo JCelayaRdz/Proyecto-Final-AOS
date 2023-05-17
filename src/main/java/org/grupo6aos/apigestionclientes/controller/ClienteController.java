@@ -2,7 +2,7 @@ package org.grupo6aos.apigestionclientes.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.grupo6aos.apigestionclientes.model.Cliente;
+import org.grupo6aos.apigestionclientes.dto.ClienteDto;
 import org.grupo6aos.apigestionclientes.service.ClienteService;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -23,15 +23,19 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> findAll(
+    public ResponseEntity<List<ClienteDto>> findAll(
             @RequestParam(name = "page", required = false) Integer page,
             @RequestParam(name = "order", required = false) String order,
             @RequestParam(name = "ordering", required = false) Sort.Direction ordering,
             HttpServletRequest request
     ) {
-        var clientes =  service.findAll(page, order, ordering)
-                .stream()
-                .toList();
+        var clientes =  service.findAll(
+                page,
+                order,
+                ordering,
+                String.valueOf(request.getRequestURL())
+        );
+
         String etag = Integer.toString(clientes.hashCode());
         return ResponseEntity.ok()
                 .header("ETag", etag)
@@ -39,7 +43,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    public ResponseEntity<Cliente> findOne(@PathVariable String clienteId) {
+    public ResponseEntity<ClienteDto> findOne(@PathVariable String clienteId) {
         var cliente = service.findOne(clienteId);
         String etag = Integer.toString(cliente.hashCode());
         return ResponseEntity.ok()
@@ -48,7 +52,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> saveOne(@Valid @RequestBody Cliente cliente,
+    public ResponseEntity<ClienteDto> saveOne(@Valid @RequestBody ClienteDto cliente,
                                            HttpServletRequest request) {
         var url = request.getRequestURL();
         var clienteGuardado = service.saveOne(cliente);
@@ -59,7 +63,7 @@ public class ClienteController {
 
     @PutMapping("/{clienteId}")
     public ResponseEntity<?> updateOne(@PathVariable String clienteId,
-                                       @Valid @RequestBody Cliente cliente) {
+                                       @Valid @RequestBody ClienteDto cliente) {
         var clienteActualizado = service.updateOne(clienteId, cliente);
         return ResponseEntity.status(209)
                 .body(clienteActualizado);
