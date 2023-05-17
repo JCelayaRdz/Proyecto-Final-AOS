@@ -2,14 +2,11 @@ package org.grupo6aos.apigestionclientes.dto;
 
 public class Link {
 
-    private String linkName;
-
     private String href;
 
     private String rel;
 
-    public Link(String linkName, String href, String rel) {
-        this.linkName = linkName;
+    public Link(String href, String rel) {
         this.href = href;
         this.rel = rel;
     }
@@ -30,17 +27,9 @@ public class Link {
         this.rel = rel;
     }
 
-    public String getLinkName() {
-        return linkName;
-    }
-
-    public void setLinkName(String linkName) {
-        this.linkName = linkName;
-    }
-
     @Override
     public String toString() {
-        return linkName + " { = " +
+        return "Link ={" +
                 "href='" + href + '\'' +
                 ", rel='" + rel + '\'' +
                 '}';
