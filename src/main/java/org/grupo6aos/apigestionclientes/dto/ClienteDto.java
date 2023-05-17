@@ -3,10 +3,12 @@ package org.grupo6aos.apigestionclientes.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import org.grupo6aos.apigestionclientes.model.Cliente;
 import org.grupo6aos.apigestionclientes.model.Direccion;
 import org.grupo6aos.apigestionclientes.model.Sexo;
 
 import java.util.List;
+import java.util.Map;
 
 public class ClienteDto {
 
@@ -39,7 +41,7 @@ public class ClienteDto {
 
     private List<String> vehiculos;
 
-    private List<Link> links;
+    private Map<String, Link> links;
 
     public ClienteDto(String id,
                       String nombre,
@@ -131,12 +133,27 @@ public class ClienteDto {
         this.vehiculos = vehiculos;
     }
 
-    public List<Link> getLinks() {
+    public Map<String, Link> getLinks() {
         return links;
     }
 
-    public void setLinks(List<Link> links) {
+    public void setLinks(Map<String, Link> links) {
         this.links = links;
+    }
+
+    public Cliente toEntity() {
+        var cliente = new Cliente (
+                this.id,
+                this.nombre,
+                this.apellidos,
+                this.numeroTelefono
+        );
+        cliente.setSexo(this.sexo);
+        cliente.setEdad(this.edad);
+        cliente.setCorreoElectronico(this.correoElectronico);
+        cliente.setDireccion(this.direccion);
+
+        return cliente;
     }
 
     @Override
