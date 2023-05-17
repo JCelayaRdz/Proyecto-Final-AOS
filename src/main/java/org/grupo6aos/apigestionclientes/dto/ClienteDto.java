@@ -9,6 +9,7 @@ import org.grupo6aos.apigestionclientes.model.Sexo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ClienteDto {
 
@@ -41,7 +42,7 @@ public class ClienteDto {
 
     private List<String> vehiculos;
 
-    private Map<String, Link> links;
+    private Map<String, Object> links;
 
     public ClienteDto(String id,
                       String nombre,
@@ -133,11 +134,11 @@ public class ClienteDto {
         this.vehiculos = vehiculos;
     }
 
-    public Map<String, Link> getLinks() {
+    public Map<String, Object> getLinks() {
         return links;
     }
 
-    public void setLinks(Map<String, Link> links) {
+    public void setLinks(Map<String, Object> links) {
         this.links = links;
     }
 
