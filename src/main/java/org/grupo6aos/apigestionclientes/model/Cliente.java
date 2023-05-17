@@ -3,6 +3,7 @@ package org.grupo6aos.apigestionclientes.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import org.grupo6aos.apigestionclientes.dto.ClienteDto;
 
 @Entity
 @Table(name = "cliente")
@@ -111,6 +112,19 @@ public class Cliente {
 
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
+    }
+
+    public ClienteDto toDto() {
+        return new ClienteDto (
+              this.id,
+              this.nombre,
+              this.apellidos,
+              this.sexo,
+              this.edad,
+              this.numeroTelefono,
+              this.correoElectronico,
+              this.direccion
+        );
     }
 
     @Override
