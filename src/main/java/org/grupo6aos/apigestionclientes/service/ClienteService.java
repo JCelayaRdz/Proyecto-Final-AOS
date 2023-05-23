@@ -129,14 +129,19 @@ public class ClienteService {
         return ordering == null || ordering.isAscending();
     }
 
-    public ClienteDto findOne(String clienteId) {
+    public ClienteDto findOne(String clienteId, String url) {
         return repository.findById(clienteId)
                 .map(Cliente::toDto)
                 .map(dto -> {
                     dto.setVehiculos(vinService.generateVins());
                     return dto;
                 })
+                .map(dto -> {
+                    dto.setLinks(addlinks(dto, url));
+                    return dto;
+                })
                 .orElseThrow(NotFoundException::new);
+
     }
 
     public ClienteDto saveOne(ClienteDto clienteDto) {

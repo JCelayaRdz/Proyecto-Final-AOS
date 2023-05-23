@@ -43,8 +43,17 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    public ResponseEntity<ClienteDto> findOne(@PathVariable String clienteId) {
-        var cliente = service.findOne(clienteId);
+    public ResponseEntity<ClienteDto> findOne(@PathVariable String clienteId,
+                                              HttpServletRequest request) {
+        var url = String.valueOf(request.getRequestURL());
+        // Para encontrar la URL del endpoint sin el identificador del cliente
+        // y generar los links necesarios
+        var endIndex = url.lastIndexOf("/" + clienteId);
+
+        var cliente = service.findOne(
+                clienteId,
+                url.substring(0, endIndex)
+        );
         String etag = Integer.toString(cliente.hashCode());
         return ResponseEntity.ok()
                 .header("ETag", etag)
