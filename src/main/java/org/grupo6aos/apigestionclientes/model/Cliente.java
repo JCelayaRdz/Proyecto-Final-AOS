@@ -24,16 +24,16 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
-    private int edad;
+    private Integer edad;
 
     @Column(name = "numero_telefono")
     @NotEmpty
-    @Pattern(regexp = "^(?:(?:\\+|00)34)?[6-9]\\d{8}$\n",
+    @Pattern(regexp = "^(?:(?:\\+|00)34)?[6-9]\\d{8}$",
             message = "El telefono no es valido")
     private String numeroTelefono;
 
     @Column(name = "correo_electronico")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n",
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "El correo electronico no es valido")
     private String correoElectronico;
 
