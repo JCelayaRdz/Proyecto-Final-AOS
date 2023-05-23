@@ -63,8 +63,8 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<ClienteDto> saveOne(@Valid @RequestBody ClienteDto cliente,
                                            HttpServletRequest request) {
-        var url = request.getRequestURL();
-        var clienteGuardado = service.saveOne(cliente);
+        var url = String.valueOf(request.getRequestURL());
+        var clienteGuardado = service.saveOne(cliente, url);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header("Location", url+"/"+clienteGuardado.getId())
                 .body(clienteGuardado);

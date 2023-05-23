@@ -146,11 +146,12 @@ public class ClienteService {
 
     }
 
-    public ClienteDto saveOne(ClienteDto clienteDto) {
+    public ClienteDto saveOne(ClienteDto clienteDto, String url) {
         if (repository.existsById(clienteDto.getId())) throw new BadRequestException();
         var cliente = repository.save(clienteDto.toEntity())
                 .toDto();
         cliente.setVehiculos(vinService.generateVins());
+        cliente.setLinks(addlinks(cliente, url));
         return cliente;
     }
 
