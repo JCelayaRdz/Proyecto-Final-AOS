@@ -41,6 +41,7 @@ public class ClienteDto {
 
     private Direccion direccion;
 
+    @NotEmpty
     private List<String> vehiculos;
 
     private Map<String, Object> links;
