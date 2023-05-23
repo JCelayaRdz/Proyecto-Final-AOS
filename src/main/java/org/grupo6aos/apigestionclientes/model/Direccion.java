@@ -1,5 +1,7 @@
 package org.grupo6aos.apigestionclientes.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
@@ -24,7 +26,11 @@ public class Direccion {
     public Direccion() {
     }
 
-    public Direccion(String nombreCalle, Integer numeroEdificacion, String detalles) {
+    @JsonCreator
+    public Direccion(
+            @JsonProperty("nombre_calle") String nombreCalle,
+            @JsonProperty("numero_edificacion") Integer numeroEdificacion,
+            @JsonProperty("detalles") String detalles) {
         this.nombreCalle = nombreCalle;
         this.numeroEdificacion = numeroEdificacion;
         this.detalles = detalles;
