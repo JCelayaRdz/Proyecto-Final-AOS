@@ -82,11 +82,11 @@ public class Cliente {
         this.sexo = sexo;
     }
 
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
