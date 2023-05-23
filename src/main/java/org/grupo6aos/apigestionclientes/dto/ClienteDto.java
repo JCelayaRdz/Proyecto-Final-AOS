@@ -1,5 +1,7 @@
 package org.grupo6aos.apigestionclientes.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -29,11 +31,11 @@ public class ClienteDto {
     private Integer edad;
 
     @NotEmpty
-    @Pattern(regexp = "^(?:(?:\\+|00)34)?[6-9]\\d{8}$\n",
+    @Pattern(regexp = "^(?:(?:\\+|00)34)?[6-9]\\d{8}$",
             message = "El telefono no es valido")
     private String numeroTelefono;
 
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n",
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "El correo electronico no es valido")
     private String correoElectronico;
 
@@ -43,14 +45,18 @@ public class ClienteDto {
 
     private Map<String, Object> links;
 
-    public ClienteDto(String id,
-                      String nombre,
-                      String apellidos,
-                      Sexo sexo,
-                      Integer edad,
-                      String numeroTelefono,
-                      String correoElectronico,
-                      Direccion direccion) {
+    public ClienteDto() {
+    }
+
+    @JsonCreator
+    public ClienteDto(@JsonProperty("id") String id,
+                      @JsonProperty("nombre") String nombre,
+                      @JsonProperty("apellidos") String apellidos,
+                      @JsonProperty("sexo") Sexo sexo,
+                      @JsonProperty("edad") Integer edad,
+                      @JsonProperty("numero_telefono") String numeroTelefono,
+                      @JsonProperty("correo_electronico") String correoElectronico,
+                      @JsonProperty("direccion") Direccion direccion) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
