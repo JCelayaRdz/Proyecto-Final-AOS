@@ -78,7 +78,7 @@ public class ClienteService {
     }
 
     public Map<String, Object> addlinks(ClienteDto cliente, String url) {
-        var links = new HashMap<String, Object>();
+        var links = new LinkedHashMap<String, Object>();
         var vehiculos = new ArrayList<Link>();
         links.put("parent", new Link (
                 url,
@@ -103,17 +103,19 @@ public class ClienteService {
         return links;
     }
 
-    public List<Link> getPageLinks(Page<Cliente> page, String url) {
-        var links = new ArrayList<Link>();
+    public Map<String, Link> getPageLinks(Page<Cliente> page, String url) {
+        var links = new LinkedHashMap<String, Link>();
         var currentPageNumber = page.getNumber();
         var previousPageNumber = currentPageNumber - 1;
         var nextPageNumber = currentPageNumber + 1;
+
         if (previousPageNumber >= 0) {
-            links.add(new Link(url+"?page="+previousPageNumber, "prevPage"));
+            links.put("prevPage",new Link(url+"?page="+previousPageNumber, "prevPage"));
         }
         if (nextPageNumber <= page.getTotalPages()) {
-            links.add(new Link(url+"?page="+nextPageNumber, "nextPage"));
+            links.put("nextPage", new Link(url+"?page="+nextPageNumber, "nextPage"));
         }
+
         return links;
     }
 
