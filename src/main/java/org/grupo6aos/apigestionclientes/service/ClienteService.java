@@ -8,8 +8,8 @@ import org.grupo6aos.apigestionclientes.model.Cliente;
 import org.grupo6aos.apigestionclientes.repository.ClienteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -34,13 +34,14 @@ public class ClienteService {
         this.vinService = vinService;
     }
 
-    public List<ClienteDto> findAll(Integer page,
+    public Map<String, Object> findAll(Integer page,
                                     String order,
                                     Sort.Direction ordering,
                                     String url) {
-        int pageNumber = 0;
-        String orderBy = "id";
-        Sort.Direction direction = Sort.Direction.ASC;
+        var requestPayload = new LinkedHashMap<String, Object>();
+        var pageNumber = 0;
+        var orderBy = "id";
+        var direction = Sort.Direction.ASC;
 
         if (!shouldReturnFirstPage(page)) {
             pageNumber = page;
@@ -58,7 +59,7 @@ public class ClienteService {
 
         if (slice.getNumberOfElements() == 0) throw new NotFoundException();
 
-        var c =  slice.stream()
+        var clientes =  slice.stream()
                 .map(Cliente::toDto)
                 .map(dto -> {
                     dto.setVehiculos(vinService.generateVins());
@@ -70,7 +71,10 @@ public class ClienteService {
                 })
                 .toList();
 
-        return c;
+        requestPayload.put("clientes", clientes);
+        requestPayload.put("links", getPageLinks(slice, url));
+
+        return requestPayload;
     }
 
     public Map<String, Object> addlinks(ClienteDto cliente, String url) {
@@ -96,6 +100,20 @@ public class ClienteService {
 
         links.put("vehiculos", vehiculos);
 
+        return links;
+    }
+
+    public List<Link> getPageLinks(Page<Cliente> page, String url) {
+        var links = new ArrayList<Link>();
+        var currentPageNumber = page.getNumber();
+        var previousPageNumber = currentPageNumber - 1;
+        var nextPageNumber = currentPageNumber + 1;
+        if (previousPageNumber >= 0) {
+            links.add(new Link(url+"?page="+previousPageNumber, "prevPage"));
+        }
+        if (nextPageNumber <= page.getTotalPages()) {
+            links.add(new Link(url+"?page="+nextPageNumber, "nextPage"));
+        }
         return links;
     }
 
