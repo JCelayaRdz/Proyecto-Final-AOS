@@ -155,10 +155,14 @@ public class ClienteService {
         return cliente;
     }
 
-    public ClienteDto updateOne(String clienteId, ClienteDto clienteDto) {
+    public ClienteDto updateOne(String clienteId, ClienteDto clienteDto, String url) {
         if (!repository.existsById(clienteId)) throw new NotFoundException();
-        return repository.save(clienteDto.toEntity())
+        var cliente =  repository.save(clienteDto.toEntity())
                 .toDto();
+        cliente.setVehiculos(vinService.generateVins());
+        //TODO: Revisar bug con el link self
+        cliente.setLinks(addlinks(cliente, url));
+        return cliente;
     }
 
     public void deleteOne(String clienteId) {

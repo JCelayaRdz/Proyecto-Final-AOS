@@ -72,8 +72,13 @@ public class ClienteController {
 
     @PutMapping("/{clienteId}")
     public ResponseEntity<?> updateOne(@PathVariable String clienteId,
-                                       @Valid @RequestBody ClienteDto cliente) {
-        var clienteActualizado = service.updateOne(clienteId, cliente);
+                                       @Valid @RequestBody ClienteDto cliente,
+                                       HttpServletRequest request) {
+        var url = String.valueOf(request.getRequestURL());
+        // Para encontrar la URL del endpoint sin el identificador del cliente
+        // y generar los links necesarios
+        var endIndex = url.lastIndexOf("/" + clienteId);
+        var clienteActualizado = service.updateOne(clienteId, cliente, url);
         return ResponseEntity.status(209)
                 .body(clienteActualizado);
     }
