@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  frontend:
+    image: swaggerapi/swagger-ui:latest
+    container_name: swagger
+    ports:
+      - "8000:8080"
+    environment:
+      SWAGGER_JSON: /aos/openapi-server.yml
+    volumes:
+      - ./openapi/api:/aos/:ro
+    depends_on:
+      - api
   api:
     build: .
     container_name: grupo6aos_api_gestion_clientes
