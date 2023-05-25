@@ -1,8 +1,10 @@
 package org.grupo6aos.apigestionclientes.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.grupo6aos.apigestionclientes.dto.ClienteDto;
 
@@ -40,6 +42,8 @@ public class Cliente {
     private String correoElectronico;
 
     @Embedded
+    @Valid
+    @NotNull
     private Direccion direccion;
 
     public Cliente() {

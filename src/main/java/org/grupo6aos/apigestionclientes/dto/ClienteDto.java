@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.grupo6aos.apigestionclientes.model.Cliente;
 import org.grupo6aos.apigestionclientes.model.Direccion;
@@ -41,6 +42,7 @@ public class ClienteDto {
     private String correoElectronico;
 
     @Valid
+    @NotNull
     private Direccion direccion;
 
     @NotEmpty
