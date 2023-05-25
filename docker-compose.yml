@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8080"
     environment:
-      SWAGGER_JSON: /aos/openapi-server.yml
+      SWAGGER_JSON: /aos/openapi.yml
     volumes:
       - ./openapi/api:/aos/:ro
     depends_on:
