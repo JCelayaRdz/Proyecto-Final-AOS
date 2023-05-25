@@ -18,6 +18,7 @@ public class Direccion {
     private String nombreCalle;
 
     @Column(name = "numero_edificacion")
+    @NotEmpty
     @NotNull
     private Integer numeroEdificacion;
 
