@@ -78,7 +78,11 @@ public class ClienteController {
         // Para encontrar la URL del endpoint sin el identificador del cliente
         // y generar los links necesarios
         var endIndex = url.lastIndexOf("/" + clienteId);
-        var clienteActualizado = service.updateOne(clienteId, cliente, url);
+        var clienteActualizado = service.updateOne(
+                clienteId,
+                cliente,
+                url.substring(0, endIndex)
+        );
         return ResponseEntity.status(209)
                 .body(clienteActualizado);
     }
