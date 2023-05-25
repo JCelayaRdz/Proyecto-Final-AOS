@@ -7,12 +7,14 @@ import org.grupo6aos.apigestionclientes.service.ClienteService;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
+@Validated
 public class ClienteController {
 
     private final ClienteService service;
