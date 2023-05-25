@@ -13,12 +13,11 @@ public class Direccion {
 
     @Column(name = "nombre_calle")
     @NotEmpty
-    @Pattern(regexp = "^C/ [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+)*$\n",
+    @Pattern(regexp = "^C/ [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+( [a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+)*$",
             message = "La calle proporcionada no cumple con el formato valido")
     private String nombreCalle;
 
     @Column(name = "numero_edificacion")
-    @NotEmpty
     @NotNull
     private Integer numeroEdificacion;
 

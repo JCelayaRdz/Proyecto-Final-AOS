@@ -2,6 +2,7 @@ package org.grupo6aos.apigestionclientes.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -31,7 +32,7 @@ public class ClienteDto {
     private Integer edad;
 
     @NotEmpty
-    @Pattern(regexp = "^(?:(?:\\+|00)34)?[6-9]\\d{8}$",
+    @Pattern(regexp = "^(0034|34|\\+34)?[6-9]\\d{8}$",
             message = "El telefono no es valido")
     private String numeroTelefono;
 
@@ -39,6 +40,7 @@ public class ClienteDto {
             message = "El correo electronico no es valido")
     private String correoElectronico;
 
+    @Valid
     private Direccion direccion;
 
     @NotEmpty

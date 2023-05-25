@@ -1,6 +1,7 @@
 package org.grupo6aos.apigestionclientes.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import org.grupo6aos.apigestionclientes.dto.ClienteDto;
@@ -24,11 +25,12 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
+    @Min(value = 0, message = "La edad debe de ser igual o mayor a 0")
     private Integer edad;
 
     @Column(name = "numero_telefono")
     @NotEmpty
-    @Pattern(regexp = "^(?:(?:\\+|00)34)?[6-9]\\d{8}$",
+    @Pattern(regexp = "^(0034|34|\\+34)?[6-9]\\d{8}$",
             message = "El telefono no es valido")
     private String numeroTelefono;
 
