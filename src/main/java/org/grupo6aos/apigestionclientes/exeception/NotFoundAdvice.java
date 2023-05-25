@@ -19,6 +19,8 @@ public class NotFoundAdvice {
                 e.getMessage(),
                 "about:blank");
 
+        e.printStackTrace();
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .header("Content-Type","application/problem+json")
                 .body(body);

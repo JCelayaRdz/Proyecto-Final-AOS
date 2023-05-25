@@ -17,6 +17,8 @@ public class BadRequestAdvice {
                 e.getMessage(),
                 "about:blank");
 
+        e.printStackTrace();
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .header("Content-Type","application/problem+json")
                 .body(body);
