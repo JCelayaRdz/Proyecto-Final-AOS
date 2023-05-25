@@ -157,10 +157,25 @@ public class ClienteService {
 
     public ClienteDto updateOne(String clienteId, ClienteDto clienteDto, String url) {
         if (!repository.existsById(clienteId)) throw new NotFoundException();
+        var clienteGuardado = repository.findById(clienteId).get();
+
+        // Si alguno de los campos no obligatorios es null, establecemos estos como los del cliente que esta en la bd
+        if (clienteDto.getSexo() == null) {
+            clienteDto.setSexo(clienteGuardado.getSexo());
+        }
+        if (clienteDto.getEdad() == null) {
+            clienteDto.setEdad(clienteGuardado.getEdad());
+        }
+        if (clienteDto.getCorreoElectronico() == null) {
+            clienteDto.setCorreoElectronico(clienteGuardado.getCorreoElectronico());
+        }
+        if (clienteDto.getDireccion().getDetalles() == null) {
+            clienteDto.getDireccion().setDetalles(clienteGuardado.getDireccion().getDetalles());
+        }
+
         var cliente =  repository.save(clienteDto.toEntity())
                 .toDto();
         cliente.setVehiculos(vinService.generateVins());
-        //TODO: Revisar bug con el link self
         cliente.setLinks(addlinks(cliente, url));
         return cliente;
     }
