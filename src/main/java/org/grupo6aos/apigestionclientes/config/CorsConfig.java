@@ -29,7 +29,7 @@ public class CorsConfig {
         config.setExposedHeaders(Arrays.asList("Authorization", "Content-Disposition"));
 
         var source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/api/v1/clientes/**", config);
 
         return source;
     }
