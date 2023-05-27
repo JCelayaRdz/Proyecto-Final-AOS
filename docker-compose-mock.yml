@@ -9,6 +9,8 @@ services:
       - "4010:4010"
     volumes:
       - ./openapi/mock:/aos:ro
+    networks:
+      - mock-network
 
   frontend:
     image: swaggerapi/swagger-ui:latest
@@ -19,6 +21,8 @@ services:
       SWAGGER_JSON: /aos/openapi.yml
     volumes:
       - ./openapi/mock:/aos:ro
+    networks:
+      - mock-network
 
   proxy:
     image: caddy:latest
@@ -30,3 +34,8 @@ services:
       - "80:80"
     depends_on:
       - mock_backend
+    networks:
+      - mock-network
+
+networks:
+  mock-network:
