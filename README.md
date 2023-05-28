@@ -113,6 +113,8 @@ api-gestion-clientes-5c85cf488d-wqtc4   1/1     Running   5 (13s ago)     4h4m
 mysql-0                                 1/1     Running   1 (3h59m ago)   4h4m
 swagger-ui-d566cc454-fgr8k              1/1     Running   1 (3h59m ago)   4h4m
 ```
+Hay que ser paciente, porque el servidor de MySQL tarda en iniciarse y hasta que no lo haga la API se reiniciará
+varias veces. Hasta que el Pod de la API no esté ejecutándose (Status Running) no podrá responder a peticiones.
 A continuación debemos permitir que los servicios de Kubernetes sean accesibles mediante el comando:
 ```bash
 minikube service --all
