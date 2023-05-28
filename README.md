@@ -31,6 +31,7 @@ Los objetivos de esta práctica son:
    3. [Validación de los objetos](#validacion-de-los-objetos)
    4. [Atributo vehículos y mock del servicio](#atributo-vehiculos-y-mock-del-servicio)
    5. [Peticiones OPTIONS a la API usando Swagger y Docker Compose](#peticiones-options-a-la-api-usando-swagger-y-docker-compose)
+   6. [Datos de prueba en la base de datos](#datos-de-prueba-en-la-base-de-datos)
 5. [Autores](#autores-equipo-6) 
 
 ## Stack Tecnologico usado
@@ -311,6 +312,11 @@ de microservicios (cada servicio tiene su propia base de datos).
 ### Peticiones OPTIONS a la API usando Swagger y Docker Compose
 Si se quieren realizar peticiones OPTIONS a la API desde la interfaz de Swagger cuando se usa Docker Compose
 es necesario desactivar el CORS en el navegador, de lo contario hay que usar herramientas como Postman o Curl.
+
+### Datos de prueba en la base de datos
+Al iniciarse la API ejecuta el script `sample-data.sql` que inserta datos de prueba en la base de datos, si es que estos
+no existen. Es por ello que inicialmente al enviar una petición GET al endpoint `/api/v1/clientes` la API devolverá
+datos de clientes. Esto se consigue gracias a la clase `org.grupo6aos.apigestionclientes.config.SampleDataConfig`.
 
 ## Autores [Equipo 6]
 * Juan Antonio Celaya Rodríguez
