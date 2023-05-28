@@ -322,7 +322,7 @@ datos de clientes. Esto se consigue gracias a la clase `org.grupo6aos.apigestion
 
 ### Imagen en DockerHub
 La imagen de la API se encuentra en la siguiente 
-[URL](https://hub.docker.com/repository/docker/jcelayardz/api-gestion-clientes/general)
+[URL](https://hub.docker.com/r/jcelayardz/api-gestion-clientes)
 
 ## Autores [Equipo 6]
 * Juan Antonio Celaya Rodríguez
